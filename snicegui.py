@@ -1,5 +1,4 @@
- 
-from nicegui import ui
+rom nicegui import ui
 import sys
 import rpyc
 from pathlib import Path
@@ -56,10 +55,14 @@ class Data:
         	self.Rx1 = 30
         	self.Rx2 = 30
         	self.Tx1 = 30
-		
+        	self.Tx2 = 30
 
 radio = RadioController()
 data = Data()
+filter_options = [
+            'bypass', '36MHz', '72MHz', '144MHz',
+            '288MHz', '432MHz', '576MHz', '720MHz'
+        ]
 @ui.page('/')
 def main_page():
     with ui.column().classes('absolute-top-right q-pa-md'): # Position top-right
@@ -106,14 +109,28 @@ def main_page():
         ui.slider(min=0, max=60, step=0.1, value=30).props('label-always').bind_value(data, 'Tx2') \
     .on('update:model-value', lambda e: radio.update_gain('tx1', e.args),
         throttle=0.5)
+    with ui.expansion('Bias', icon='menu'):
+        ui.label('hello')
+
+
 
     with ui.expansion('Filters', icon='menu'):
-        ui.label('Option 1')
-        ui.label('Option 2')
-        ui.label('Option 3')
+        rx0_filter =  ui.select(
+        options=filter_options, value='bypass', label='Rx 0 Filter'
+    ).on('update:model-value', lambda e: radio.update_filter('rx0', e.args))
+        rx1_filter = ui.select(
+        options=filter_options, value='bypass', label='Rx 1 Filter'
+    ).on('update:model-value', lambda e: radio.update_filter('rx1', e.args))
+        tx0_filter = ui.select(
+        options=filter_options, value='bypass', label='Tx 0 Filter'
+    ).on('update:model-value', lambda e: radio.update_filter('tx0', e.args))
+        tx1_filter = ui.select(
+        options=filter_options, value='bypass', label='Tx 1 Filter'
+    ).on('update:model-value', lambda e: radio.update_filter('tx1', e.args))
 
 
 ui.run(
     port=443
 )
+
 
