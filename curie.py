@@ -128,6 +128,8 @@ def main_page():
         options=filter_options, value='bypass', label='Tx 1 Filter'
     ).on('update:model-value', lambda e: radio.update_filter('tx1', e.args))
 
+	 with ui.expansion('GPIO', icon='menu'): 
+        ui.button('reset lmx', on_click=lambda: radio.reset_lmx())
 
 ui.run(
     port=443
