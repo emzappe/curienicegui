@@ -1,4 +1,3 @@
- 
 from nicegui import ui
 import sys
 import rpyc
@@ -79,94 +78,96 @@ filter_options = {
 @ui.page('/')
 def main_page():     
     with ui.column().classes('absolute-top-right q-pa-md'): # Position top-right
-    ui.image('favicon.png').classes('w-8 h-8').props('fit=scale-down') 
-    ui.image('favicon.png').classes('w-12 h-12').props('fit=scale-down')
-    ui.label("hello world")
+    	ui.image('favicon.png').classes('w-8 h-8').props('fit=scale-down') 
+    	ui.image('favicon.png').classes('w-12 h-12').props('fit=scale-down')
+    	ui.label("hello world")
     with ui.tabs().classes('w-full') as tabs:
-      one = ui.tab('Lo's & Gains')
-      two = ui.tab('Bias & Gpio & Filters')
+        one = ui.tab('Lo & Gains')
+        two = ui.tab('Bias')
+        three = ui.tab('Filters')
+        four = ui.tab('Gpio')
     with ui.tab_panels(tabs, value=two).classes('w-full'):
-    with ui.tab_panel(one):
-        ui.label('First tab')
-        with ui.card().classes('fixed-center'):.label('Second tab')
-        ui.label('low-freqency') 
-        ui.number(min=0.4, max=4.4, step=0.000001, label='Enter value', value=0,).bind_value(data, 'lowfreq')\
-    .on('update:model-value', lambda e: radio.update_freq('lo', e.args))
-        ui.slider(min=0.4, max=4.4, step=0.000001, value=2.4).props('label-always').bind_value(data, 'lowfreq') \
-    .on('update:model-value', lambda e: radio.update_freq('lo', e.args),
-        throttle=0.5)
-        ui.label('Hi-freqency')
-        ui.number(min=6.0, max=22.8, step=0.000001, label='Enter value', value=radio.srv.get_high_LO()/1e9,).bind_value(data, 'hifreq')\
-    .on('update:model-value', lambda e: radio.update_freq('hi', e.args))
-        ui.slider(min=6.0, max=22.8, step=0.000001, value=10.8).props('label-always').bind_value(data, 'hifreq')\
-    .on('update:model-value', lambda e: radio.update_freq('hi', e.args),
-        throttle=0.5)
-        ui.label('Rx gain 1')
-        ui.number(min=0, max=60, step=0.1, label='Enter value',).bind_value(data, 'Rx1') \
-    .on('update:model-value', lambda e: radio.update_gain('rx0', e.args)) 
-        ui.slider(min=0, max=60, step=0.1, value=30).props('label-always').bind_value(data, 'Rx1') \
-    .on('update:model-value', lambda e: radio.update_gain('rx1', e.args),
-        throttle=0.5)
-        ui.label('Rx gain 2')
-        ui.number(min=0, max=60, step=0.1, label='Enter value',).bind_value(data, 'Rx2')\
-    .on('update:model-value', lambda e: radio.update_gain('rx1', e.args))
-        ui.slider(min=0, max=60, step=0.1, value=30).props('label-always').bind_value(data, 'Rx2') \
-    .on('update:model-value', lambda e: radio.update_gain('rx1', e.args),
-        throttle=0.5)
-        ui.label('Tx gain 1')
-        ui.number(min=0, max=60, step=0.1, label='Enter value',).bind_value(data, 'Tx1')\
-    .on('update:model-value', lambda e: radio.update_gain('tx0', e.args))
-        ui.slider(min=0, max=60, step=0.1, value=30).props('label-always').bind_value(data, 'Tx1') \
-    .on('update:model-value', lambda e: radio.update_gain('tx0', e.args),
-        throttle=0.5)
+        with ui.tab_panel(one):
+            ui.label('low-freqency') 
+            ui.number(min=0.4, max=4.4, step=0.000001, label='Enter value', value=0,).bind_value(data, 'lowfreq')\
+        .on('update:model-value', lambda e: radio.update_freq('lo', e.args))
+            ui.slider(min=0.4, max=4.4, step=0.000001, value=2.4).props('label-always').bind_value(data, 'lowfreq') \
+        .on('update:model-value', lambda e: radio.update_freq('lo', e.args),
+            throttle=0.5)
+            ui.label('Hi-freqency')
+            ui.number(min=6.0, max=22.8, step=0.000001, label='Enter value', value=radio.srv.get_high_LO()/1e9,).bind_value(data, 'hifreq')\
+        .on('update:model-value', lambda e: radio.update_freq('hi', e.args))
+            ui.slider(min=6.0, max=22.8, step=0.000001, value=10.8).props('label-always').bind_value(data, 'hifreq')\
+        .on('update:model-value', lambda e: radio.update_freq('hi', e.args),
+            throttle=0.5)
+            ui.label('Rx gain 1')
+            ui.number(min=0, max=60, step=0.1, label='Enter value',).bind_value(data, 'Rx1') \
+        .on('update:model-value', lambda e: radio.update_gain('rx0', e.args)) 
+            ui.slider(min=0, max=60, step=0.1, value=30).props('label-always').bind_value(data, 'Rx1') \
+        .on('update:model-value', lambda e: radio.update_gain('rx1', e.args),
+            throttle=0.5)
+            ui.label('Rx gain 2')
+            ui.number(min=0, max=60, step=0.1, label='Enter value',).bind_value(data, 'Rx2')\
+        .on('update:model-value', lambda e: radio.update_gain('rx1', e.args))
+            ui.slider(min=0, max=60, step=0.1, value=30).props('label-always').bind_value(data, 'Rx2') \
+        .on('update:model-value', lambda e: radio.update_gain('rx1', e.args),
+            throttle=0.5)
+            ui.label('Tx gain 1')
+            ui.number(min=0, max=60, step=0.1, label='Enter value',).bind_value(data, 'Tx1')\
+        .on('update:model-value', lambda e: radio.update_gain('tx0', e.args))
+            ui.slider(min=0, max=60, step=0.1, value=30).props('label-always').bind_value(data, 'Tx1') \
+        .on('update:model-value', lambda e: radio.update_gain('tx0', e.args),
+            throttle=0.5)
+            ui.label('Tx gain 2')
+            ui.number(min=0, max=60, step=0.1, label='Enter value',).bind_value(data, 'Tx2')\
+        .on('update:model-value', lambda e: radio.update_gain('tx1', e.args))
+            ui.slider(min=0, max=60, step=0.1, value=30).props('label-always').bind_value(data, 'Tx2') \
+        .on('update:model-value', lambda e: radio.update_gain('tx1', e.args),
+            throttle=0.5)
+        with ui.tab_panel(two):
+            ui.label('Tx0 Bias I')
+            ui.number(min=-0.4, max=0.4, step=0.001, label='Enter value',).bind_value(data, 'tx0i')\
+        .on('update:model-value', lambda e: radio.update_bias(0, "I", e.args))
+            ui.slider(min=-0.4, max=0.4, step=0.001, value=0).props('label-always').bind_value(data, 'tx0i') \
+        .on('update:model-value', lambda e: radio.update_bias(0, "I", e.args),
+            throttle=0.5)
+            ui.label('Tx0 Bias Q')
+            ui.number(min=-0.4, max=0.4, step=0.001, label='Enter value',).bind_value(data, 'tx0q')\
+        .on('update:model-value', lambda e: radio.update_bias(0, "Q", e.args))
+            ui.slider(min=-0.4, max=0.4, step=0.001, value=0).props('label-always').bind_value(data, 'tx0q') \
+        .on('update:model-value', lambda e: radio.update_bias(0, "Q", e.args),
+            throttle=0.5)
+            ui.label('Tx1 Bias I')
+            ui.number(min=-0.4, max=0.4, step=0.001, label='Enter value',).bind_value(data, 'tx1i')\
+        .on('update:model-value', lambda e: radio.update_bias(1, "I", e.args))
+            ui.slider(min=-0.4, max=0.4, step=0.001, value=0).props('label-always').bind_value(data, 'tx1i') \
+        .on('update:model-value', lambda e: radio.update_bias(1, "I", e.args),
+            throttle=0.5)
+            ui.label('Tx1 Bias Q')
+            ui.number(min=-0.4, max=0.4, step=0.001, label='Enter value',).bind_value(data, 'tx1q')\
+        .on('update:model-value', lambda e: radio.update_bias(1, "Q", e.args))
+            ui.slider(min=-0.4, max=0.4, step=0.001, value=0).props('label-always').bind_value(data, 'tx1q') \
+        .on('update:model-value', lambda e: radio.update_bias(1, "Q", e.args),
+            throttle=0.5)
 
-        ui.label('Tx gain 2')
-        ui.number(min=0, max=60, step=0.1, label='Enter value',).bind_value(data, 'Tx2')\
-    .on('update:model-value', lambda e: radio.update_gain('tx1', e.args))
-        ui.slider(min=0, max=60, step=0.1, value=30).props('label-always').bind_value(data, 'Tx2') \
-    .on('update:model-value', lambda e: radio.update_gain('tx1', e.args),
-        throttle=0.5)
-    with ui.tab_panel(two)
-        ui.label('Tx0 Bias I')
-        ui.number(min=-0.4, max=0.4, step=0.001, label='Enter value',).bind_value(data, 'tx0i')\
-    .on('update:model-value', lambda e: radio.update_bias(0, "I", e.args))
-        ui.slider(min=-0.4, max=0.4, step=0.001, value=0).props('label-always').bind_value(data, 'tx0i') \
-    .on('update:model-value', lambda e: radio.update_bias(0, "I", e.args),
-        throttle=0.5)
-        ui.label('Tx0 Bias Q')
-        ui.number(min=-0.4, max=0.4, step=0.001, label='Enter value',).bind_value(data, 'tx0q')\
-    .on('update:model-value', lambda e: radio.update_bias(0, "Q", e.args))
-        ui.slider(min=-0.4, max=0.4, step=0.001, value=0).props('label-always').bind_value(data, 'tx0q') \
-    .on('update:model-value', lambda e: radio.update_bias(0, "Q", e.args),
-        throttle=0.5)
-        ui.label('Tx1 Bias I')
-        ui.number(min=-0.4, max=0.4, step=0.001, label='Enter value',).bind_value(data, 'tx1i')\
-    .on('update:model-value', lambda e: radio.update_bias(1, "I", e.args))
-        ui.slider(min=-0.4, max=0.4, step=0.001, value=0).props('label-always').bind_value(data, 'tx1i') \
-    .on('update:model-value', lambda e: radio.update_bias(1, "I", e.args),
-        throttle=0.5)
-        ui.label('Tx1 Bias Q')
-        ui.number(min=-0.4, max=0.4, step=0.001, label='Enter value',).bind_value(data, 'tx1q')\
-    .on('update:model-value', lambda e: radio.update_bias(1, "Q", e.args))
-        ui.slider(min=-0.4, max=0.4, step=0.001, value=0).props('label-always').bind_value(data, 'tx1q') \
-    .on('update:model-value', lambda e: radio.update_bias(1, "Q", e.args),
-        throttle=0.5)
-        ui.checkbox('Use Internal Reference', on_change=lambda e: radio.update_gpio(2, e.value))
-        ui.checkbox('Use Internal Reference for Low Side', on_change=lambda e: radio.update_gpio(3, e.value))
-        ui.checkbox('Disable Input 20dB Attenuator', on_change=lambda e: radio.update_gpio(6, e.value))
-        ui.button('reset lmx', on_click=lambda: radio.reset_lmx())
-        rx0_filter =  ui.select(
-        options=filter_options, value="bypass", label='Rx 0 Filter'
-    ).on('update:model-value', lambda e: radio.update_filter('rx0', e.args))
-        rx1_filter = ui.select(
-        options=filter_options, value="bypass", label='Rx 1 Filter'
-    ).on('update:model-value', lambda e: radio.update_filter('rx1', e.args))
-        tx0_filter = ui.select(
-        options=filter_options, value="bypass", label='Tx 0 Filter'
-    ).on('update:model-value', lambda e: radio.update_filter('tx0', e.args))
-        tx1_filter = ui.select(
-        options=filter_options, value="bypass", label='Tx 1 Filter'
-    ).on('update:model-value', lambda e: radio.update_filter('tx1', e.args))
+        with ui.tab_panel(four):
+            ui.checkbox('Use Internal Reference', on_change=lambda e: radio.update_gpio(2, e.value))
+            ui.checkbox('Use Internal Reference for Low Side', on_change=lambda e: radio.update_gpio(3, e.value))
+            ui.checkbox('Disable Input 20dB Attenuator', on_change=lambda e: radio.update_gpio(6, e.value))
+            ui.button('reset lmx', on_click=lambda: radio.reset_lmx())
+        with ui.tab_panel(three):
+            rx0_filter =  ui.select(
+            options=filter_options, value="bypass", label='Rx 0 Filter'
+       ).on('update:model-value', lambda e: radio.update_filter('rx0', e.args))
+            rx1_filter = ui.select(
+            options=filter_options, value="bypass", label='Rx 1 Filter'
+       ).on('update:model-value', lambda e: radio.update_filter('rx1', e.args))
+            tx0_filter = ui.select(
+            options=filter_options, value="bypass", label='Tx 0 Filter'
+       ).on('update:model-value', lambda e: radio.update_filter('tx0', e.args))
+            tx1_filter = ui.select(
+            options=filter_options, value="bypass", label='Tx 1 Filter'
+       ).on('update:model-value', lambda e: radio.update_filter('tx1', e.args))
      
 
   
