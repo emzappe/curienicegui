@@ -168,7 +168,26 @@ def main_page():
             tx1_filter = ui.select(
             options=filter_options, value="bypass", label='Tx 1 Filter'
        ).on('update:model-value', lambda e: radio.update_filter('tx1', e.args))
-     
+@app.get('/freq/{param}/{freq1}')
+async def read_item(param, freq1: float):
+        radio.update_freq(param, freq1)
+        return{'Lo': param, 'Freqency': freq1}
+        #return{ 'frequency': curie.get_low_LO() }
+        #return{ 'frequency': curie.get_high_LO() }
+@app.get('/gain/{chan}/{val}')
+async def read_item(chan, val: float):
+        radio.update_gain(chan, val)
+        return{'channel': chan, 'gain': val}
+        #return{'TX0': curie.get_gain('tx', 0), 'TX1': curie.get_gain('tx', 1), 'RX0': curie.get_gain('rx', 0), 'RX1': curie.get_gain('rx', 1)}
+@app.get('/bias/{chan}/{iq}/{bval}')
+async def read_item(chan: int, iq, bval: float):
+        radio.update_bias(chan, iq , bval)
+        return{'channel': chan, 'I/Q': iq, 'value': bval}
+        #return{'0 I': curie.get_mixer_bias(0, 'I'), '0 Q': curie.get_mixer_bias(0, 'Q'), '1 I': curie.get_mixer_bias(1, 'I'), '1 Q': curie.get_mixer_bias(1, 'Q')}
+@app.get('/filter/{chan}/{filter}')
+async def read_item(chan, filter: str):
+        radio.update_filters(chan, filter)
+        return{'channel': chan, 'filter': filter}
 
   
 
