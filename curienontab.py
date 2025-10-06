@@ -1,6 +1,7 @@
  
 from nicegui import ui
 import sys
+#from curiectl import curie
 import rpyc
 from pathlib import Path
 from nicegui.events import ValueChangeEventArguments
