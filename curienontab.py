@@ -1,5 +1,5 @@
  
-from nicegui import ui
+from nicegui import app, ui
 import sys
 #from curiectl import curie
 import rpyc
