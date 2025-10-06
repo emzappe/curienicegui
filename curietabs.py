@@ -4,11 +4,6 @@ import sys
 import rpyc
 from pathlib import Path
 from nicegui.events import ValueChangeEventArguments
-lo = ui.slider(min=0, max=100, value=50)
-hilo = ui.slider(min=0, max=100, value=50)
-rx1 = ui.slider(min=0, max=100, value=50)
-rx2 = ui.slider(min=0, max=100, value=50)
-tx1 = ui.slider(min=0, max=100, value=50)
 class RadioController:
     def __init__(self):
         self.conn = rpyc.connect('localhost', 37000)
@@ -87,7 +82,7 @@ def main_page():
         two = ui.tab('Bias')
         three = ui.tab('Filters')
         four = ui.tab('Gpio')
-    with ui.tab_panels(tabs, value=two).classes('w-full'):
+    with ui.tab_panels(tabs, value=one).classes('w-full'):
         with ui.tab_panel(one):
             ui.label('low-freqency') 
             ui.number(min=0.4, max=4.4, step=0.000001, label='Enter value', value=0,).bind_value(data, 'lowfreq')\
