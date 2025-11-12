@@ -216,4 +216,5 @@ def resetlmx():
 
 ui.run(
     port=443
+	title='Curie'
 )
