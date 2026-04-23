@@ -5,7 +5,7 @@ import rpyc
 from pathlib import Path
 from nicegui.events import ValueChangeEventArguments
 
-class RadioController:
+class Curiewebcontroller:
     def __init__(self):
         self.conn = rpyc.connect('localhost', 37000)
         
@@ -84,7 +84,7 @@ class Data:
         	self.tx0q = radio.srv.get_mixer_bias(0, 'Q')
         	self.tx1i = radio.srv.get_mixer_bias(1, 'I')
         	self.tx1q = radio.srv.get_mixer_bias(1, 'Q')
-radio = RadioController()
+radio = Curiewebcontroller()
 data = Data()
 filter_options = {
           "bypass": "bypass", "36MHz": "36MHz", "72MHz": "72MHz", "144MHz": "144MHz",
